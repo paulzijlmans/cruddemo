@@ -1,10 +1,10 @@
-package nl.paulzijlmans.springboot.cruddemo.dao;
+package nl.paulzijlmans.springboot.cruddemo.service;
 
 import nl.paulzijlmans.springboot.cruddemo.entity.Employee;
 
 import java.util.List;
 
-public interface EmployeeDAO {
+public interface EmployeeService {
 
     List<Employee> findAll();
 
