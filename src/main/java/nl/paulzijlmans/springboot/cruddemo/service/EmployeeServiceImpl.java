@@ -1,40 +1,36 @@
 package nl.paulzijlmans.springboot.cruddemo.service;
 
 import lombok.AllArgsConstructor;
-import nl.paulzijlmans.springboot.cruddemo.dao.EmployeeDAO;
+import nl.paulzijlmans.springboot.cruddemo.dao.EmployeeRepository;
 import nl.paulzijlmans.springboot.cruddemo.entity.Employee;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDAO employeeDAO;
+    private EmployeeRepository employeeRepository;
 
     @Override
-    @Transactional
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
-    @Transactional
     public Employee findById(int id) {
-        return employeeDAO.findById(id);
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee id not found - " + id));
     }
 
     @Override
-    @Transactional
     public void save(Employee employee) {
-        employeeDAO.save(employee);
+        employeeRepository.save(employee);
     }
 
     @Override
-    @Transactional
     public void deleteById(int id) {
-        employeeDAO.deleteById(id);
+        employeeRepository.delete(findById(id));
     }
 }
